@@ -111,6 +111,10 @@ def parse_hydra_configs(cfg: DictConfig):
     cfg.seed = set_seed(cfg.seed, torch_deterministic=cfg.torch_deterministic)
     cfg_dict['seed'] = cfg.seed
 
+    print("")
+    print("about to initialize task")
+    print("")
+
     task = initialize_task(cfg_dict, env)
 
     if cfg.wandb_activate and rank == 0:
@@ -131,6 +135,9 @@ def parse_hydra_configs(cfg: DictConfig):
 
 
     rlg_trainer = RLGTrainer(cfg, cfg_dict)
+    print("")
+    print("starting RLGTrainer")
+    print("")
     rlg_trainer.launch_rlg_hydra(env)
     rlg_trainer.run()
     env.close()
